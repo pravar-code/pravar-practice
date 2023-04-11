@@ -1,0 +1,139 @@
+info:
+    description: "ZainHeadlessUserorderList REST API"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "ZainHeadlessUserorderList"
+    version: v1.0
+openapi: 3.0.1
+components:
+  schemas:
+    UserOrderList:
+      type: object
+      description: Contains all Order list.
+      properties:
+        status:
+          type: string
+        statusCode:
+          type: string
+          example: ZN100
+        statusMessage:
+          type: string
+        data:
+          type: object
+          properties: 
+            orders:
+              type: array
+              items: 
+                type: object
+                properties: 
+                  commerceOrderId:
+                    type: integer
+                    format: int64
+                  userId:
+                    type: integer
+                    format: int32
+                  createDate:
+                    type: string
+                    format: date
+                  orderStatus:
+                    type: integer
+                    format: int32
+                  orderItems:
+                    type: array
+                    items:
+                      type: object
+                      properties: 
+                        orderItemId:
+                          type: integer
+                          format: int64
+                        cpInstanceId:
+                          type: integer
+                          format: int64
+                        cpDefinitionId:
+                          type: integer
+                          format: int64
+                        quantity:
+                          type: integer
+                          format: int64
+                        productName:
+                          type: string
+                        itemPrice:
+                          type: number
+                        dueTodayAmount:
+                          type: number
+                        giftCharge:
+                          type: integer
+                          format: int64
+                        giftMessage:
+                          type: string
+                  dueTodayAmount:
+                    type: number
+                  duePerMonthAmount:
+                    type: number
+                  shippingChargeAmount:
+                    type: number
+                  discountAmount:
+                    type: number
+                  grandTotal:
+                    type: string
+        end:
+          type: integer
+          example: 10
+          
+        start:
+          type: integer
+          example: 1
+        total:
+          type: integer
+          example: 15
+    Resuest:
+      properties:
+        serviceName:
+          type: string
+        requestType:
+          type: string
+        userId:
+          type: integer
+          format: int32
+        fromDate:
+          type: string
+        toDate:
+          type: string
+        start:
+          type: integer
+          format: int32
+          example: 1
+        end:
+          type: integer 
+          format: int32
+          example: 10
+paths:
+  "/getUserOrderList":
+    post:
+      tags: ["ZainUserOrderListing"]
+      description: Retrieves the list of User Order List . Results can be paginated, filtered, searched, and sorted.
+      parameters:
+        - in: query
+          name: channelId
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resuest'
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Resuest"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/UserOrderList"
+            application/xml:
+              schema:
+                  $ref: "#/components/schemas/UserOrderList"

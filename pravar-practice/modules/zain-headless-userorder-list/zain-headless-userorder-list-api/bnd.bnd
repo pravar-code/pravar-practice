@@ -1,0 +1,6 @@
+Bundle-Name: zain-headless-userorder-list-api
+Bundle-SymbolicName: zain.headless.userorder.list.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	zain.headless.userorder.list.dto.v1_0,\
+	zain.headless.userorder.list.resource.v1_0
